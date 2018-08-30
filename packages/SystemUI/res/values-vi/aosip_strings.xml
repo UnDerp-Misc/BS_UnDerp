@@ -248,4 +248,15 @@
     <string name="dlg_cancel">Hủy</string>
     <string name="guts_force_close_app">Đóng ứng dụng</string>
 
+    <!-- Omnijaws Weather -->
+    <string name="omnijaws_service_error">Lỗi</string>
+    <string name="omnijaws_service_unkown">Không có dữ liệu thời tiết</string>
+    <string name="omnijaws_service_error_long">Lỗi khi tải dữ liệu thời tiết</string>
+    <string name="omnijaws_service_disabled">Dịch vụ bị vô hiệu hóa</string>
+    <string name="omnijaws_detail_header">Thời tiết</string>
+    <string name="omnijaws_label_default">Thời tiết</string>
+    <string name="omnijaws_current_text">Hiện tại</string>
+    <string name="omnijaws_package_not_available">OmniJaws không có sẵn</string>
+    <string name="omnijaws_service_last_update">Cập nhật lần cuối cùng:</string>
+
 </resources>
