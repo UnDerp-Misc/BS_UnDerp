@@ -78,6 +78,8 @@ public class CurrentWeatherView extends FrameLayout implements OmniJawsClient.Om
     private int mRightTextColor;
     private int mLeftTextColor;
     private int mCurrentImageColor;
+    private int omniRightTextFont;
+    private int omniLeftTextFont;
 
     public CurrentWeatherView(Context context) {
         this(context, null);
@@ -139,8 +141,12 @@ public class CurrentWeatherView extends FrameLayout implements OmniJawsClient.Om
                 Settings.System.LOCKSCREEN_WEATHER_SHOW_IMAGE, 1, UserHandle.USER_CURRENT) == 1;
         mRightTextColor = Settings.System.getIntForUser(getContext().getContentResolver(),
                 Settings.System.LOCK_SCREEN_WEATHER_TEMP_COLOR, 0xFFFFFFFF, UserHandle.USER_CURRENT);
+        omniRightTextFont = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.LOCK_WEATHER_TEMP_FONTS, 27, UserHandle.USER_CURRENT);
         mLeftTextColor = Settings.System.getIntForUser(getContext().getContentResolver(),
                 Settings.System.LOCK_SCREEN_WEATHER_CITY_COLOR, 0xFFFFFFFF, UserHandle.USER_CURRENT);
+        omniLeftTextFont = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.LOCK_WEATHER_CITY_FONTS, 27, UserHandle.USER_CURRENT);
         mCurrentImageColor = Settings.System.getIntForUser(getContext().getContentResolver(),
                 Settings.System.LOCK_SCREEN_WEATHER_ICON_COLOR, 0xFFFFFFFF, UserHandle.USER_CURRENT);
         if (DEBUG) Log.d(TAG, "updateWeatherData");
@@ -168,7 +174,199 @@ public class CurrentWeatherView extends FrameLayout implements OmniJawsClient.Om
             mCurrentImage.setImageDrawable(d);
             mCurrentImage.setColorFilter(mCurrentImageColor);
         } else {
-            mCurrentImage.setVisibility(View.GONE);
+            mCurrentImage.setImageResource(android.R.color.transparent);
+        }
+        if (omniLeftTextFont == 0) {
+            mLeftText.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 1) {
+            mLeftText.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        }
+        if (omniLeftTextFont == 2) {
+            mLeftText.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+        }
+        if (omniLeftTextFont == 3) {
+            mLeftText.setTypeface(Typeface.create("antipastopro", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 4) {
+            mLeftText.setTypeface(Typeface.create("arbutussource", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 5) {
+            mLeftText.setTypeface(Typeface.create("arvolato", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 6) {
+            mLeftText.setTypeface(Typeface.create("bariolsource", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 7) {
+            mLeftText.setTypeface(Typeface.create("cagliostrosource", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 8) {
+            mLeftText.setTypeface(Typeface.create("circularstd", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 9) {
+            mLeftText.setTypeface(Typeface.create("comfortaa", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 10) {
+            mLeftText.setTypeface(Typeface.create("evolvesans", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 11) {
+            mLeftText.setTypeface(Typeface.create("exotwo", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 12) {
+            mLeftText.setTypeface(Typeface.create("firasans", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 13) {
+            mLeftText.setTypeface(Typeface.create("fucek", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 14) {
+            mLeftText.setTypeface(Typeface.create("gobold-light-sys", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 15) {
+            mLeftText.setTypeface(Typeface.create("googlesansmedium", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 16) {
+            mLeftText.setTypeface(Typeface.create("lemonmilk", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 17) {
+            mLeftText.setTypeface(Typeface.create("nokiapure", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 18) {
+            mLeftText.setTypeface(Typeface.create("quando", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 19) {
+            mLeftText.setTypeface(Typeface.create("reemkufi", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 20) {
+            mLeftText.setTypeface(Typeface.create("rosemarysource", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 21) {
+            mLeftText.setTypeface(Typeface.create("rubikrubik", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 22) {
+            mLeftText.setTypeface(Typeface.create("samsungone", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 23) {
+            mLeftText.setTypeface(Typeface.create("simpleday", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 24) {
+            mLeftText.setTypeface(Typeface.create("slateforoneplus", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 25) {
+            mLeftText.setTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 26) {
+            mLeftText.setTypeface(Typeface.create("aclonica-sys", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 27) {
+            mLeftText.setTypeface(Typeface.create("amarante-sys", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 28) {
+            mLeftText.setTypeface(Typeface.create("coolstory-sys", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 29) {
+            mLeftText.setTypeface(Typeface.create("sonysketch-sys", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 30) {
+            mLeftText.setTypeface(Typeface.create("surfer-sys", Typeface.NORMAL));
+        }
+        if (omniLeftTextFont == 31) {
+            mLeftText.setTypeface(Typeface.create("themeable-sys", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 0) {
+            mRightText.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 1) {
+            mRightText.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+        }
+        if (omniRightTextFont == 2) {
+            mRightText.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+        }
+        if (omniRightTextFont == 3) {
+            mRightText.setTypeface(Typeface.create("antipastopro", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 4) {
+            mRightText.setTypeface(Typeface.create("arbutussource", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 5) {
+            mRightText.setTypeface(Typeface.create("arvolato", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 6) {
+            mRightText.setTypeface(Typeface.create("bariolsource", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 7) {
+            mRightText.setTypeface(Typeface.create("cagliostrosource", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 8) {
+            mRightText.setTypeface(Typeface.create("circularstd", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 9) {
+            mRightText.setTypeface(Typeface.create("comfortaa", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 10) {
+            mRightText.setTypeface(Typeface.create("evolvesans", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 11) {
+            mRightText.setTypeface(Typeface.create("exotwo", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 12) {
+            mRightText.setTypeface(Typeface.create("firasans", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 13) {
+            mRightText.setTypeface(Typeface.create("fucek", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 14) {
+            mRightText.setTypeface(Typeface.create("gobold-light-sys", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 15) {
+            mRightText.setTypeface(Typeface.create("googlesansmedium", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 16) {
+            mRightText.setTypeface(Typeface.create("lemonmilk", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 17) {
+            mRightText.setTypeface(Typeface.create("nokiapure", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 18) {
+            mRightText.setTypeface(Typeface.create("quando", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 19) {
+            mRightText.setTypeface(Typeface.create("reemkufi", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 20) {
+            mRightText.setTypeface(Typeface.create("rosemarysource", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 21) {
+            mRightText.setTypeface(Typeface.create("rubikrubik", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 22) {
+            mRightText.setTypeface(Typeface.create("samsungone", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 23) {
+            mRightText.setTypeface(Typeface.create("simpleday", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 24) {
+            mRightText.setTypeface(Typeface.create("slateforoneplus", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 25) {
+            mRightText.setTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 26) {
+            mRightText.setTypeface(Typeface.create("aclonica-sys", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 27) {
+            mRightText.setTypeface(Typeface.create("amarante-sys", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 28) {
+            mRightText.setTypeface(Typeface.create("coolstory-sys", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 29) {
+            mRightText.setTypeface(Typeface.create("sonysketch-sys", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 30) {
+            mRightText.setTypeface(Typeface.create("surfer-sys", Typeface.NORMAL));
+        }
+        if (omniRightTextFont == 31) {
+            mRightText.setTypeface(Typeface.create("themeable-sys", Typeface.NORMAL));
         }
     }
 
@@ -273,6 +471,12 @@ public class CurrentWeatherView extends FrameLayout implements OmniJawsClient.Om
                     false, this, UserHandle.USER_ALL);
             getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCK_SCREEN_WEATHER_ICON_COLOR),
+                    false, this, UserHandle.USER_ALL);
+            getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCK_WEATHER_CITY_FONTS),
+                    false, this, UserHandle.USER_ALL);
+            getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCK_WEATHER_TEMP_FONTS),
                     false, this, UserHandle.USER_ALL);
         }
 
