@@ -233,4 +233,12 @@
     <string name="quick_settings_location_detail_mode_high_accuracy_description">Dùng GPS, Wi\u2011Fi, Bluetooth, hoặc mạng di động để xác định vị trí </string>
     <string name="quick_settings_location_detail_mode_battery_saving_description">Dùng Wi\u2011Fi, Bluetooth, hoặc mạng di động để xác định vị trí</string>
     <string name="quick_settings_location_detail_mode_sensors_only_description">Dùng GPS để xác định vị trí của bạn</string>
+
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Buộc dừng?</string>
+    <string name="force_stop_dlg_text">Nếu bạn buộc dừng một ứng dụng, nó có thể hoạt động sai.</string>
+    <string name="dlg_ok">Đồng ý</string>
+    <string name="dlg_cancel">Hủy</string>
+    <string name="guts_force_close_app">Đóng ứng dụng</string>
+
 </resources>

@@ -6336,6 +6336,18 @@ public final class Settings {
                 ANY_STRING_VALIDATOR;
 
         /**
+         * Whether to show the kill app button in notification guts
+         *
+         * @hide
+         */
+        public static final String NOTIFICATION_GUTS_KILL_APP_BUTTON =
+                "notification_guts_kill_app_button";
+
+        /** @hide */
+        private static final Validator NOTIFICATION_GUTS_KILL_APP_BUTTON_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Controls whether to show R style notification headers
          * @hide
          */
@@ -6727,6 +6739,7 @@ public final class Settings {
             BATTERY_BAR_HIGH_COLOR,
             BATTERY_BAR_LOW_COLOR,
             BATTERY_BAR_USE_GRADIENT_COLOR,
+            NOTIFICATION_GUTS_KILL_APP_BUTTON,
         };
 
         /**
@@ -6963,6 +6976,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PROXIMITY_AUTO_SPEAKER);
             PRIVATE_SETTINGS.add(PROXIMITY_AUTO_SPEAKER_DELAY);
             PRIVATE_SETTINGS.add(PROXIMITY_AUTO_SPEAKER_INCALL_ONLY);
+            PRIVATE_SETTINGS.add(NOTIFICATION_GUTS_KILL_APP_BUTTON);
         }
 
         /**
@@ -7256,6 +7270,7 @@ public final class Settings {
             VALIDATORS.put(BATTERY_BAR_HIGH_COLOR, BATTERY_BAR_HIGH_COLOR_VALIDATOR);
             VALIDATORS.put(BATTERY_BAR_LOW_COLOR, BATTERY_BAR_LOW_COLOR_VALIDATOR);
             VALIDATORS.put(BATTERY_BAR_USE_GRADIENT_COLOR, BATTERY_BAR_USE_GRADIENT_COLOR_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_GUTS_KILL_APP_BUTTON, NOTIFICATION_GUTS_KILL_APP_BUTTON_VALIDATOR);
         }
 
         /**
