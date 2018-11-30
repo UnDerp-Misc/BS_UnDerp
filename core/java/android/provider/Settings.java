@@ -5308,6 +5308,16 @@ public final class Settings {
         private static final Validator VOWIFI_ICON_STYLE_VALIDATOR =
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 4);
 
+       /**
+         * Settings dashboard icon style
+         * @hide
+         */
+        public static final String THEMING_SETTINGS_DASHBOARD_ICONS =
+                "theming_settings_dashboard_icons";
+
+        /** @hide */
+        private static final Validator THEMING_SETTINGS_DASHBOARD_ICONS_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
         /**
          * Show 4G instead of LTE
          * @hide
@@ -7067,6 +7077,7 @@ public final class Settings {
             LOCKSCREEN_WEATHER_SHOW_CITY,
             LOCKSCREEN_WEATHER_SHOW_IMAGE,
             HIDE_SMART_REPLIES,
+            THEMING_SETTINGS_DASHBOARD_ICONS,
         };
 
         /**
@@ -7317,6 +7328,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_CITY);
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_IMAGE);
             PRIVATE_SETTINGS.add(HIDE_SMART_REPLIES);
+            PRIVATE_SETTINGS.add(THEMING_SETTINGS_DASHBOARD_ICONS);
         }
 
         /**
@@ -7626,6 +7638,7 @@ public final class Settings {
             VALIDATORS.put(LOCKSCREEN_WEATHER_SHOW_CITY, LOCKSCREEN_WEATHER_SHOW_CITY_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_WEATHER_SHOW_IMAGE, LOCKSCREEN_WEATHER_SHOW_IMAGE_VALIDATOR);
             VALIDATORS.put(HIDE_SMART_REPLIES, HIDE_SMART_REPLIES_VALIDATOR);
+            VALIDATORS.put(THEMING_SETTINGS_DASHBOARD_ICONS, THEMING_SETTINGS_DASHBOARD_ICONS_VALIDATOR);
         }
 
         /**
