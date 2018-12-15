@@ -78,7 +78,7 @@
     <dimen name="status_bar_battery_bigcircle_icon_width">20.5dp</dimen>
 
     <!-- OmniWeather image size -->
-    <dimen name="current_weather_image_size">42dp</dimen>
+    <dimen name="current_weather_image_size">30dp</dimen>
 
     <!-- Weather condition icon  -->
     <dimen name="weather_icon_size">24dp</dimen>
