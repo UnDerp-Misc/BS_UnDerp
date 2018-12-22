@@ -84,6 +84,7 @@ public class KeyguardStatusView extends GridLayout implements
     private int mTextColor;
     private CurrentWeatherView mWeatherView;
     private boolean mShowWeather;
+    private boolean mOmniStyle;
 
     /**
      * Bottom margin that defines the margin between bottom of smart space and top of notification
@@ -234,7 +235,10 @@ public class KeyguardStatusView extends GridLayout implements
         mTextClock = findViewById(R.id.custom_text_clock_view);
         mOwnerInfo = findViewById(R.id.owner_info);
         mKeyguardSlice = findViewById(R.id.keyguard_status_area);
+
         mWeatherView = (CurrentWeatherView) findViewById(R.id.weather_container);
+        updateSettings();
+
         mKeyguardSliceView = findViewById(R.id.keyguard_status_area);
         mClockView.refreshLockFont();
         refreshLockDateFont();
@@ -1118,12 +1122,16 @@ public class KeyguardStatusView extends GridLayout implements
                 Settings.System.OMNI_LOCKSCREEN_WEATHER_ENABLED, 0,
                 UserHandle.USER_CURRENT) == 1;
 
+        mOmniStyle = Settings.System.getIntForUser(resolver,
+                Settings.System.LOCKSCREEN_WEATHER_STYLE, 1,
+                UserHandle.USER_CURRENT) == 0;
+
         if (mWeatherView != null) {
-            if (mShowWeather) {
+            if (mShowWeather && mOmniStyle) {
                 mWeatherView.setVisibility(View.VISIBLE);
                 mWeatherView.enableUpdates();
             }
-            if (!mShowWeather) {
+            if (!mShowWeather || !mOmniStyle) {
                 mWeatherView.setVisibility(View.GONE);
                 mWeatherView.disableUpdates();
             }

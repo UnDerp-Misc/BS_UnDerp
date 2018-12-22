@@ -28,6 +28,7 @@ import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.content.res.Resources;
 import android.graphics.drawable.Icon;
 import android.icu.text.DateFormat;
 import android.icu.text.DisplayContext;
@@ -127,6 +128,8 @@ public class KeyguardSliceProvider extends SliceProvider implements
     private String mLastText;
     private boolean mRegistered;
     private String mNextAlarm;
+    private int mLsDateSel;
+    private String mLsDateSPattern;
     private NextAlarmController mNextAlarmController;
     @VisibleForTesting
     protected AlarmManager mAlarmManager;
@@ -148,8 +151,8 @@ public class KeyguardSliceProvider extends SliceProvider implements
     private OmniJawsClient mWeatherClient;
     private OmniJawsClient.WeatherInfo mWeatherInfo;
     private OmniJawsClient.PackageInfo mPackageInfo;
-    private boolean mServiceEnabled;
     private boolean mWeatherEnabled;
+    private boolean mShowWeatherSlice;
 
     /**
      * Receiver responsible for time ticking and updating the date format.
@@ -328,8 +331,8 @@ public class KeyguardSliceProvider extends SliceProvider implements
     }
 
     protected void addWeather(ListBuilder builder) {
-        if (!mWeatherClient.isOmniJawsSetupDone()) return;
-        if (!mWeatherEnabled || mWeatherInfo == null || mPackageInfo == null) {
+        if (!mWeatherClient.isOmniJawsEnabled()) return;
+        if (!mWeatherEnabled || !mShowWeatherSlice || mWeatherInfo == null || mPackageInfo == null) {
             return;
         }
         String temperatureText = mWeatherInfo.temp + " " + mWeatherInfo.tempUnits;
@@ -353,14 +356,12 @@ public class KeyguardSliceProvider extends SliceProvider implements
 
     private void queryAndUpdateWeather() {
         try {
-            if (DEBUG) Log.d(TAG, "queryAndUpdateWeather.isOmniJawsSetupDone " + mWeatherClient.isOmniJawsSetupDone());
-            if (mWeatherClient.isOmniJawsSetupDone()) {
-                mWeatherClient.queryWeather();
-                mWeatherInfo = mWeatherClient.getWeatherInfo();
-                setPackageInfo();
-                if (DEBUG) Log.w(TAG, "queryAndUpdateWeather mPackageName: " + mPackageInfo.packageName);
-                if (DEBUG) Log.w(TAG, "queryAndUpdateWeather mDrawableResID: " + mPackageInfo.resourceID);
-            }
+            if (DEBUG) Log.d(TAG, "queryAndUpdateWeather.isOmniJawsEnabled " + mWeatherClient.isOmniJawsEnabled());
+            mWeatherClient.queryWeather();
+            mWeatherInfo = mWeatherClient.getWeatherInfo();
+            setPackageInfo();
+            if (DEBUG) Log.w(TAG, "queryAndUpdateWeather mPackageName: " + mPackageInfo.packageName);
+            if (DEBUG) Log.w(TAG, "queryAndUpdateWeather mDrawableResID: " + mPackageInfo.resourceID);
         } catch(Exception e) {
             // Do nothing
         }
@@ -368,11 +369,12 @@ public class KeyguardSliceProvider extends SliceProvider implements
 
     private void setPackageInfo() {
         mPackageInfo = null;
-        if (mWeatherClient != null && mWeatherInfo != null){
+        if (mWeatherInfo != null){
               Drawable conditionImage = mWeatherClient.getWeatherConditionImage(mWeatherInfo.conditionCode);
               mPackageInfo = mWeatherClient.getPackageInfo();
         }
     }
+
     private WeatherSettingsObserver mWeatherSettingsObserver;
 
     private class WeatherSettingsObserver extends ContentObserver {
@@ -388,6 +390,14 @@ public class KeyguardSliceProvider extends SliceProvider implements
             mContentResolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.OMNIJAWS_WEATHER_ICON_PACK),
                     false, this, UserHandle.USER_ALL);
+
+            mContentResolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_WEATHER_STYLE),
+                    false, this, UserHandle.USER_ALL);
+
+            mContentResolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.LOCKSCREEN_DATE_SELECTION),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -397,13 +407,41 @@ public class KeyguardSliceProvider extends SliceProvider implements
                 updateLockscreenWeather();
                 mContentResolver.notifyChange(mSliceUri, null /* observer */);
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.OMNIJAWS_WEATHER_ICON_PACK))) {
-                setPackageInfo();
+                queryAndUpdateWeather();
+                mContentResolver.notifyChange(mSliceUri, null /* observer */);
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_WEATHER_STYLE))) {
+                updateLockscreenWeatherStyle();
+            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.LOCKSCREEN_DATE_SELECTION))) {
+                updateDateSkeleton();
                 mContentResolver.notifyChange(mSliceUri, null /* observer */);
             }
         }
 
         public void updateLockscreenWeather() {
             mWeatherEnabled = Settings.System.getIntForUser(mContentResolver, Settings.System.OMNI_LOCKSCREEN_WEATHER_ENABLED, 0, UserHandle.USER_CURRENT) != 0;
+        }
+
+        public void updateLockscreenWeatherStyle() {
+            mShowWeatherSlice = Settings.System.getIntForUser(mContentResolver, Settings.System.LOCKSCREEN_WEATHER_STYLE, 1, UserHandle.USER_CURRENT) != 0;
+        }
+
+        public void updateDateSkeleton() {
+            mLsDateSel = Settings.Secure.getIntForUser(mContentResolver, Settings.Secure.LOCKSCREEN_DATE_SELECTION, 0, UserHandle.USER_CURRENT);
+            switch (mLsDateSel) {
+            case 4: case 5: case 6:
+                mDatePattern = getContext().getString(R.string.abbrev_wday_day_no_year);
+                break;
+            case 7:
+                mDatePattern = getContext().getString(R.string.abbrev_wday_no_year);
+                break;
+            case 8:
+                mDatePattern = getContext().getString(R.string.abbrev_wday_month_no_year);
+                break;
+            default:
+                mDatePattern = getContext().getString(R.string.system_ui_aod_date_pattern);
+                break;
+            }
+            updateClockLocked();
         }
     }
 
@@ -422,16 +460,14 @@ public class KeyguardSliceProvider extends SliceProvider implements
             mZenModeController = new ZenModeControllerImpl(getContext(), mHandler);
             mZenModeController.addCallback(this);
             mWeatherSettingsObserver = new WeatherSettingsObserver(mHandler);
+            mWeatherSettingsObserver.updateDateSkeleton();
             mWeatherSettingsObserver.observe();
             mWeatherClient = new OmniJawsClient(getContext());
-            mServiceEnabled = mWeatherClient.isOmniJawsEnabled();
-            Log.w(TAG, "onCreateSliceProvider:  mServiceEnabled = " + mServiceEnabled);
-            if (mServiceEnabled) {
-                mWeatherClient.addSettingsObserver();
-                mWeatherClient.addObserver(this);
-                queryAndUpdateWeather();
-            }
-            mDatePattern = getContext().getString(R.string.system_ui_aod_date_pattern);
+            mWeatherEnabled = Settings.System.getIntForUser(mContentResolver, Settings.System.OMNI_LOCKSCREEN_WEATHER_ENABLED, 0, UserHandle.USER_CURRENT) != 0;
+            mShowWeatherSlice = Settings.System.getIntForUser(mContentResolver, Settings.System.LOCKSCREEN_WEATHER_STYLE, 1, UserHandle.USER_CURRENT) != 0;
+            mWeatherClient.addSettingsObserver();
+            mWeatherClient.addObserver(this);
+            queryAndUpdateWeather();
             mPendingIntent = PendingIntent.getActivity(getContext(), 0, new Intent(), 0);
             mMediaWakeLock = new SettableWakeLock(WakeLock.createPartial(getContext(), "media"),
                     "media");
@@ -528,12 +564,10 @@ public class KeyguardSliceProvider extends SliceProvider implements
     }
 
     protected String getFormattedDateLocked() {
-        if (mDateFormat == null) {
-            final Locale l = Locale.getDefault();
-            DateFormat format = DateFormat.getInstanceForSkeleton(mDatePattern, l);
-            format.setContext(DisplayContext.CAPITALIZATION_FOR_STANDALONE);
-            mDateFormat = format;
-        }
+        final Locale l = Locale.getDefault();
+        DateFormat format = DateFormat.getInstanceForSkeleton(mDatePattern, l);
+        format.setContext(DisplayContext.CAPITALIZATION_FOR_STANDALONE);
+        mDateFormat = format;
         mCurrentTime.setTime(System.currentTimeMillis());
         return mDateFormat.format(mCurrentTime);
     }
