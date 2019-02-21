@@ -5687,6 +5687,14 @@ public final class Settings {
         private static final Validator STATUS_BAR_SHOW_CARRIER_VALIDATOR =
                 ANY_INTEGER_VALIDATOR;
 
+        /*
+         * Whether to auto hide clock
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_AUTO_HIDE = "status_bar_clock_auto_hide";
+        public static final String STATUS_BAR_CLOCK_AUTO_HIDE_HDURATION = "status_bar_clock_auto_hide_hduration";
+        public static final String STATUS_BAR_CLOCK_AUTO_HIDE_SDURATION = "status_bar_clock_auto_hide_sduration";
+
         /**
          * custom carrier label. The value is
          * String.
