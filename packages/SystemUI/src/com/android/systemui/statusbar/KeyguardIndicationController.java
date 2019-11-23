@@ -101,6 +101,7 @@ public class KeyguardIndicationController implements StateListener,
     private KeyguardIndicationTextView mTextView;
     private KeyguardIndicationTextView mDisclosure;
     private LottieAnimationView mChargingIndicationView;
+    private boolean mChargingIndication = true;
     private final UserManager mUserManager;
     private final IBatteryStats mBatteryInfo;
     private final SettableWakeLock mWakeLock;
@@ -603,7 +604,7 @@ public class KeyguardIndicationController implements StateListener,
                         mTextView.switchIndication(null);
                     }
                 }
-                mChargingIndicationView.setVisibility(View.GONE);
+                updateChargingIndication();
                 return;
             }
 
@@ -652,8 +653,12 @@ public class KeyguardIndicationController implements StateListener,
         }
     }
 
+    public void updateChargingIndication(boolean visible) {
+        mChargingIndication = visible;
+    }
+
     private void updateChargingIndication() {
-        if (!mDozing && mPowerPluggedIn) {
+        if (mChargingIndication && !mDozing && mPowerPluggedIn) {
             mChargingIndicationView.setVisibility(View.VISIBLE);
             mChargingIndicationView.playAnimation();
         } else {
