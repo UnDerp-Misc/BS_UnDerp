@@ -39,6 +39,7 @@ import android.os.Handler;
 import android.graphics.PorterDuff;
 import android.os.UserHandle;
 import android.os.Looper;
+import android.os.PowerManager;
 import android.os.RemoteException;
 import android.provider.Settings;
 import android.net.Uri;
@@ -100,6 +101,9 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
     private LockPatternUtils mLockPatternUtils;
 
     private Timer mBurnInProtectionTimer;
+
+    private PowerManager mPowerManager;
+    private PowerManager.WakeLock mWakeLock;
 
     private FODAnimation mFODAnimation;
     private boolean mIsRecognizingAnimEnabled;
@@ -355,6 +359,10 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         mUpdateMonitor = KeyguardUpdateMonitor.getInstance(context);
         mUpdateMonitor.registerCallback(mMonitorCallback);
 
+        mPowerManager = context.getSystemService(PowerManager.class);
+        mWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                FODCircleView.class.getSimpleName());
+
         updateCutoutFlags();
 
         Dependency.get(ConfigurationController.class).addCallback(this);
@@ -482,6 +490,10 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         mIsCircleShowing = true;
 
         setKeepScreenOn(true);
+
+        if (mIsDreaming) {
+            mWakeLock.acquire(300);
+        }
 
         setImageDrawable(null);
         setColorFilter(Color.argb(0,0,0,0), PorterDuff.Mode.SRC_ATOP);
