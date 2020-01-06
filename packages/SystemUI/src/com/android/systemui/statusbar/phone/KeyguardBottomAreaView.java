@@ -92,6 +92,8 @@ import com.android.systemui.tuner.TunerService;
 
 import com.android.internal.custom.app.LineageContextConstants;
 
+import vendor.lineage.biometrics.fingerprint.inscreen.V1_1.IFingerprintInscreen;
+
 /**
  * Implementation for the bottom area of the Keyguard, including camera/phone affordance and status
  * text.
@@ -461,8 +463,9 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
     }
 
     private boolean hasInDisplayFingerprint() {
-        return mContext.getPackageManager().hasSystemFeature(LineageContextConstants.Features.FOD)
-                && mIsFingerprintRunning;
+        PackageManager packageManager = mContext.getPackageManager();
+        boolean hasInDisplayFingerprint = packageManager.hasSystemFeature(LineageContextConstants.Features.FOD);
+        return hasInDisplayFingerprint && mIsFingerprintRunning;
     }
 
     public boolean isLeftVoiceAssist() {
