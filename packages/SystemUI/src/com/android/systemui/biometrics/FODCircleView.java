@@ -82,6 +82,9 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
     private int mDreamingOffsetY;
 
+    private int mColor;
+    private int mColorBackground;
+
     private int mCurrentBrightness;
     private int mCurrentDim;
     private boolean mIsBouncer;
@@ -298,8 +301,11 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
         Resources res = context.getResources();
 
+        mColor = res.getColor(R.color.config_fodColor);
+        mColorBackground = res.getColor(R.color.config_fodColorBackground);
+
         mPaintFingerprint.setAntiAlias(true);
-        mPaintFingerprint.setColor(res.getColor(R.color.accent_device_default_light));
+        mPaintFingerprint.setColor(mColorBackground);
 
         mWindowManager = context.getSystemService(WindowManager.class);
 
@@ -347,10 +353,12 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        canvas.drawCircle(mSize / 2, mSize / 2, mSize / 2.0f, mPaintFingerprint);
         super.onDraw(canvas);
 
         if (mIsCircleShowing) {
             setImageResource(PRESSED_STYLES[mPressedIcon]);
+            mPaintFingerprint.setColor(mColor);
         }
     }
 
@@ -464,6 +472,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         updateAlpha();
 
         setImageResource(PRESSED_STYLES[mPressedIcon]);
+        mPaintFingerprint.setColor(mColorBackground);
         setColorFilter(Color.argb(0,0,0,0), PorterDuff.Mode.SRC_ATOP);
         invalidate();
     }
