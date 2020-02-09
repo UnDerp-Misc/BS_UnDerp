@@ -6254,7 +6254,7 @@ public final class Settings {
 
         /** @hide */
         private static final Validator FOD_PRESSED_STATE_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 6);
 
         /**
          * Timeout for ambient pulse in seconds - 0 is no timeout
@@ -6283,7 +6283,7 @@ public final class Settings {
 
         /** @hide */
         private static final Validator FOD_ANIM_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 13);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 15);
 
         /**
          * Enable/Disable screenshot sound
