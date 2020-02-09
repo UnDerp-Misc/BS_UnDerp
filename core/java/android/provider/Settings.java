@@ -6283,7 +6283,7 @@ public final class Settings {
 
         /** @hide */
         private static final Validator FOD_ANIM_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 15);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 17);
 
         /**
          * Enable/Disable screenshot sound
