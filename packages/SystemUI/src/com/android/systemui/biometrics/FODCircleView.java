@@ -751,7 +751,8 @@ class FODAnimation extends ImageView {
         R.drawable.fod_op_cosmos_recognizing_anim,
         R.drawable.fod_op_mclaren_recognizing_anim,
         R.drawable.fod_pureview_future_recognizing_anim,
-        R.drawable.fod_pureview_molecular_recognizing_anim
+        R.drawable.fod_pureview_molecular_recognizing_anim,
+        R.drawable.fod_blue_firework_recognizing_anim
     };
 
     public FODAnimation(Context context, int mPositionX, int mPositionY) {
