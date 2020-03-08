@@ -207,5 +207,6 @@
 
   <!-- Whether device supports variable refresh rate -->
   <java-symbol type="bool" name="config_hasVariableRefreshRate" />
+  <java-symbol type="integer" name="config_defaultRefreshRate" />
 
 </resources>
