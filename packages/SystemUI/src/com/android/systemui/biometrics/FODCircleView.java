@@ -20,6 +20,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -28,11 +29,13 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Handler;
+import android.graphics.PorterDuff;
 import android.os.UserHandle;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.os.RemoteException;
 import android.provider.Settings;
+import android.net.Uri;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -49,7 +52,7 @@ import com.android.systemui.Dependency;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.ConfigurationController.ConfigurationListener;
 
-import vendor.lineage.biometrics.fingerprint.inscreen.V1_0.IFingerprintInscreen;
+import vendor.lineage.biometrics.fingerprint.inscreen.V1_1.IFingerprintInscreen;
 import vendor.lineage.biometrics.fingerprint.inscreen.V1_0.IFingerprintInscreenCallback;
 
 import java.util.NoSuchElementException;
@@ -69,16 +72,16 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
     private IFingerprintInscreen mFingerprintInscreenDaemon;
 
-    private int mDreamingOffsetX;
     private int mDreamingOffsetY;
 
+    private int mCurrentBrightness;
+    private int mCurrentDim;
     private boolean mIsBouncer;
     private boolean mIsDreaming;
     private boolean mIsKeyguard;
     private boolean mIsShowing;
     private boolean mIsCircleShowing;
-
-    private float mCurrentDimAmount = 0.0f;
+    private boolean mIsAuthenticated;
 
     private Handler mHandler;
 
@@ -169,6 +172,12 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         }
 
         @Override
+        public void onBiometricAuthenticated(int userId, BiometricSourceType biometricSourceType) {
+            super.onBiometricAuthenticated(userId, biometricSourceType);
+            mIsAuthenticated = true;
+        }
+
+        @Override
         public void onScreenTurnedOff() {
             hide();
         }
@@ -193,6 +202,42 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
     private boolean mCutoutMasked;
     private int mStatusbarHeight;
+
+    private class BrightnessObserver extends ContentObserver {
+        Context mContext;
+
+        BrightnessObserver(Context context, Handler handler) {
+            super(handler);
+            mContext = context;
+        }
+
+        void registerBrightnessListener() {
+            mContext.getContentResolver().registerContentObserver(
+                    Settings.System.getUriFor(
+                    Settings.System.SCREEN_BRIGHTNESS),
+                    false, this, UserHandle.USER_ALL);
+            updateCurrentBrightnessValue();
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            super.onChange(selfChange, uri);
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SCREEN_BRIGHTNESS))) {
+                updateCurrentBrightnessValue();
+            }
+        }
+
+        public void updateCurrentBrightnessValue() {
+            int currentBrightness = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS, 0,
+                    UserHandle.USER_CURRENT);
+            mCurrentBrightness = currentBrightness;
+            setDim(true);
+        }
+    }
+
+    private BrightnessObserver mBrightnessObserver;
 
     public FODCircleView(Context context) {
         super(context);
@@ -248,21 +293,15 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         updateCutoutFlags();
 
         Dependency.get(ConfigurationController.class).addCallback(this);
+
+        mBrightnessObserver = new BrightnessObserver(context, mHandler);
+        mBrightnessObserver.registerBrightnessListener();
+
         mPowerManager = context.getSystemService(PowerManager.class);
         mWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 FODCircleView.class.getSimpleName());
 
         mFODAnimation = new FODAnimation(context, mPositionX, mPositionY);
-
-        getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            float drawingDimAmount = mParams.dimAmount;
-            if (mCurrentDimAmount == 0.0f && drawingDimAmount > 0.0f) {
-                dispatchPress();
-                mCurrentDimAmount = drawingDimAmount;
-            } else if (mCurrentDimAmount > 0.0f && drawingDimAmount == 0.0f) {
-                mCurrentDimAmount = drawingDimAmount;
-            }
-        });
     }
 
     @Override
@@ -394,7 +433,29 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         }
     }
 
+    public void switchHbm(boolean enable) {
+        if (mShouldBoostBrightness) {
+            if (enable) {
+                mParams.screenBrightness = 1.0f;
+            } else {
+                mParams.screenBrightness = 0.0f;
+            }
+            mWindowManager.updateViewLayout(this, mParams);
+        }
+
+        IFingerprintInscreen daemon = getFingerprintInScreenDaemon();
+        try {
+            daemon.switchHbm(enable);
+        } catch (RemoteException e) {
+            // do nothing
+        }
+    }
+
     public void showCircle() {
+        if (mIsAuthenticated) {
+            return;
+        }
+
         mIsCircleShowing = true;
 
         setKeepScreenOn(true);
@@ -403,10 +464,10 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
             mWakeLock.acquire(300);
         }
 
-        setDim(true);
         updateAlpha();
 
         setFODPressedState();
+        setColorFilter(Color.argb(0,0,0,0), PorterDuff.Mode.SRC_ATOP);
         invalidate();
     }
 
@@ -414,9 +475,10 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         mIsCircleShowing = false;
 
         setImageResource(ICON_STYLES[mSelectedIcon]);
+        setColorFilter(Color.argb(mCurrentDim,0,0,0),
+                PorterDuff.Mode.SRC_ATOP);
         invalidate();
 
-        setDim(false);
         updateAlpha();
 
         setKeepScreenOn(false);
@@ -434,16 +496,21 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         }
 
         mIsShowing = true;
+        mIsAuthenticated = false;
 
         updatePosition();
 
         dispatchShow();
+        setDim(true);
+        mHandler.postDelayed(() -> { switchHbm(true); } , 250);
         setVisibility(View.VISIBLE);
     }
 
     public void hide() {
         mIsShowing = false;
 
+        mHandler.postDelayed(() -> { switchHbm(false); } , 50);
+        setDim(false);
         setVisibility(View.GONE);
         hideCircle();
         dispatchHide();
@@ -501,7 +568,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         }
 
         if (mIsDreaming) {
-            //mParams.x += mDreamingOffsetX;
             mParams.y += mDreamingOffsetY;
             mFODAnimation.updateParams(mParams.y);
         }
@@ -511,24 +577,19 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
     private void setDim(boolean dim) {
         if (dim) {
-            int curBrightness = Settings.System.getInt(getContext().getContentResolver(),
-                    Settings.System.SCREEN_BRIGHTNESS, 100);
             int dimAmount = 0;
 
             IFingerprintInscreen daemon = getFingerprintInScreenDaemon();
             try {
-                dimAmount = daemon.getDimAmount(curBrightness);
+                dimAmount = daemon.getDimAmount(mCurrentBrightness);
             } catch (RemoteException e) {
                 // do nothing
             }
 
-            if (mShouldBoostBrightness) {
-                mParams.screenBrightness = 1.0f;
-            }
-
+            mCurrentDim = dimAmount;
             mParams.dimAmount = dimAmount / 255.0f;
+            setColorFilter(Color.argb(dimAmount,0,0,0), PorterDuff.Mode.SRC_ATOP);
         } else {
-            mParams.screenBrightness = 0.0f;
             mParams.dimAmount = 0.0f;
         }
 
@@ -540,18 +601,8 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         public void run() {
             long now = System.currentTimeMillis() / 1000 / 60;
 
-            mDreamingOffsetX = (int) (now % (mDreamingMaxOffset * 4));
-            if (mDreamingOffsetX > mDreamingMaxOffset * 2) {
-                mDreamingOffsetX = mDreamingMaxOffset * 4 - mDreamingOffsetX;
-            }
-
             // Let y to be not synchronized with x, so that we get maximum movement
             mDreamingOffsetY = (int) ((now + mDreamingMaxOffset / 3) % (mDreamingMaxOffset * 2));
-            if (mDreamingOffsetY > mDreamingMaxOffset * 2) {
-                mDreamingOffsetY = mDreamingMaxOffset * 4 - mDreamingOffsetY;
-            }
-
-            mDreamingOffsetX -= mDreamingMaxOffset;
             mDreamingOffsetY -= mDreamingMaxOffset;
 
             mHandler.post(() -> updatePosition());
