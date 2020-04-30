@@ -16,7 +16,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- DerpQuest Settings Tile -->
-    <string name="quick_settings_derp_label">DerpQuest</string>
+    <string name="quick_settings_derp_label">UnDerp</string>
     <string name="statusbar_items_title">Biểu tượng thanh trạng thái</string>
     <string name="lockscreen_default">Mặc định</string>
     <string name="lockscreen_hidden">Không</string>

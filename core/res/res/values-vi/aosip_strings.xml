@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2015-2018 AOSiP
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Button that copies the url to the log of a crashed application -->
+    <string name="aerr_copy">Sao chép URL nhật ký sự cố</string>
+    <string name="url_copy_success">URL được sao chép thành công</string>
+    <string name="url_copy_failed">Đã xảy ra lỗi khi tải nhật ký lên dogbin</string>
+
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Khởi động lại bộ nạp</string>
+    <string name="reboot_to_bootloader_message">Đang khởi động lại vào bộ nạp\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Khởi động lại phục hồi</string>
+    <string name="reboot_to_recovery_message">Đang khởi động lại vào phục hồi\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Khởi động lại hệ thống</string>
+    <string name="reboot_system_message">Đang khởi động lại hệ thống\u2026</string>
+
+    <!-- AOKP custom system animations -->
+    <string name="animation_fade">Phai mờ</string>
+    <string name="animation_slide_right">Trượt sang phải</string>
+    <string name="animation_slide_left">Trượt sang trái</string>
+    <string name="animation_slide_right_no_fade">Trượt sang phải (Không phai mờ)</string>
+    <string name="animation_slide_left_no_fade">Trượt sang trái (Không phai mờ)</string>
+    <string name="animation_slide_up">Trượt xuống dưới</string>
+    <string name="animation_slide_down">Trượt lên trên</string>
+    <string name="animation_default">Mặc định</string>
+    <string name="animation_translucent">Trong suốt</string>
+    <string name="animation_grow_shrink">Lớn dần ở (Phía trên)</string>
+    <string name="animation_grow_shrink_center">Lớn dần ở (Trung tâm)</string>
+    <string name="animation_grow_shrink_bottom">Lơn dần ở (Phía dưới)</string>
+    <string name="animation_grow_shrink_left">Lớn dần ở (Bên trái)(</string>
+    <string name="animation_grow_shrink_right">Lớn dần ở (Bên phải)</string>
+    <string name="animation_random">Ngẫu nhiên</string>
+    <string name="action_null">Khoảng trống</string>
+    <string name="animation_ethans">Dạng Ethan</string>
+</resources>
