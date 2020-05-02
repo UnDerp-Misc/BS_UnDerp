@@ -259,4 +259,7 @@
     <string name="omnijaws_package_not_available">OmniJaws không có sẵn</string>
     <string name="omnijaws_service_last_update">Cập nhật lần cuối cùng:</string>
 
+    <!-- QS Header data usage info -->
+    <string name="usage_data">đã sử dụng</string>
+
 </resources>
