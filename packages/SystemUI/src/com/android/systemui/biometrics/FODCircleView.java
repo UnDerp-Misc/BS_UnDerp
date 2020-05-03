@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.biometrics.BiometricSourceType;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
@@ -176,6 +177,15 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         public void onScreenTurnedOn() {
             if (mUpdateMonitor.isFingerprintDetectionRunning()) {
                 show();
+            }
+        }
+
+        @Override
+        public void onBiometricHelp(int msgId, String helpString,
+                BiometricSourceType biometricSourceType) {
+            if (msgId == -1) { // Auth error
+                hideCircle();
+                mHandler.post(() -> mFODAnimation.hideFODanimation());
             }
         }
     };
@@ -557,7 +567,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
                 com.android.internal.R.dimen.status_bar_height_portrait);
         boolean cutoutMasked = getContext().getResources().getBoolean(
                 com.android.internal.R.bool.config_maskMainBuiltInDisplayCutout);
-        if (mCutoutMasked != cutoutMasked){
+        if (mCutoutMasked != cutoutMasked) {
             mCutoutMasked = cutoutMasked;
             updatePosition();
         }
