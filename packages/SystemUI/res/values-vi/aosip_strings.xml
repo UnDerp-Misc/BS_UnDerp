@@ -55,6 +55,10 @@
     <string name="qs_lte_label">LTE</string>
     <string name="lte_on">LTE Bật </string>
     <string name="lte_off">LTE Tắt</string>
+    <!-- Label for area where tiles can be added to the qs panel -->
+    <string name="drag_or_tap_to_add_tiles">Giữ và kéo hoặc chạm để thêm gạch</string>
+    <!-- Label for header of customize QS -->
+    <string name="drag_or_tap_to_rearrange_tiles">Giữ và kéo để sắp xếp lại hoặc nhấn để loại bỏ</string>
     <!-- Sound QS Tile -->
     <string name="quick_settings_sound_label">Âm thanh</string>
     <string name="quick_settings_sound_ring">Chuông</string>
