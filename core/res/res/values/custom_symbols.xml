@@ -16,9 +16,6 @@
 -->
 <resources>
 
-    <!-- Toast animation -->
-    <java-symbol type="style" name="Animation.Toast.Material" />
-
     <!-- Ambiant Pulse Light -->
     <java-symbol type="integer" name="config_ambientNotificationDefaultColor" />
 
