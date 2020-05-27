@@ -237,6 +237,7 @@ public class KeyguardStatusView extends GridLayout implements
         mKeyguardSlice = findViewById(R.id.keyguard_status_area);
 
         mWeatherView = (CurrentWeatherView) findViewById(R.id.weather_container);
+
         updateSettings();
 
         mKeyguardSliceView = findViewById(R.id.keyguard_status_area);
@@ -935,6 +936,7 @@ public class KeyguardStatusView extends GridLayout implements
 
     private void updateSettings() {
         final ContentResolver resolver = getContext().getContentResolver();
+        final Resources res = getContext().getResources();
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
                 mKeyguardSlice.getLayoutParams();
@@ -963,6 +965,26 @@ public class KeyguardStatusView extends GridLayout implements
             params.addRule(RelativeLayout.BELOW, R.id.custom_text_clock_view);
         }
         updateDateStyles();
+
+        mShowWeather = Settings.System.getIntForUser(resolver,
+                Settings.System.OMNI_LOCKSCREEN_WEATHER_ENABLED, 0,
+                UserHandle.USER_CURRENT) == 1;
+
+        mOmniStyle = Settings.System.getIntForUser(resolver,
+                Settings.System.LOCKSCREEN_WEATHER_STYLE, 1,
+                UserHandle.USER_CURRENT) == 0;
+
+        if (mWeatherView != null) {
+            if (mShowWeather && mOmniStyle) {
+                mWeatherView.setVisibility(View.VISIBLE);
+                mWeatherView.enableUpdates();
+            }
+            if (!mShowWeather || !mOmniStyle) {
+                mWeatherView.setVisibility(View.GONE);
+                mWeatherView.disableUpdates();
+            }
+        }
+
     }
 
     public void updateAll() {
@@ -1112,29 +1134,6 @@ public class KeyguardStatusView extends GridLayout implements
             mIActivityManager.stopUser(currentUserId, true /*force*/, null);
         } catch (RemoteException re) {
             Log.e(TAG, "Failed to logout user", re);
-        }
-    }
-
-    private void updateSettings() {
-        final ContentResolver resolver = getContext().getContentResolver();
-        final Resources res = getContext().getResources();
-        mShowWeather = Settings.System.getIntForUser(resolver,
-                Settings.System.OMNI_LOCKSCREEN_WEATHER_ENABLED, 0,
-                UserHandle.USER_CURRENT) == 1;
-
-        mOmniStyle = Settings.System.getIntForUser(resolver,
-                Settings.System.LOCKSCREEN_WEATHER_STYLE, 1,
-                UserHandle.USER_CURRENT) == 0;
-
-        if (mWeatherView != null) {
-            if (mShowWeather && mOmniStyle) {
-                mWeatherView.setVisibility(View.VISIBLE);
-                mWeatherView.enableUpdates();
-            }
-            if (!mShowWeather || !mOmniStyle) {
-                mWeatherView.setVisibility(View.GONE);
-                mWeatherView.disableUpdates();
-            }
         }
     }
 

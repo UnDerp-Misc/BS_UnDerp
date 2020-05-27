@@ -201,6 +201,19 @@ public class aosipUtils {
     public static Intent INTENT_LAUNCH_APP = new Intent(Intent.ACTION_MAIN)
             .setClassName(APP_PACKAGE_NAME, APP_PACKAGE_NAME + ".SettingsActivity");
 
+    public static boolean isPackageAvailable(String packageName, Context context) {
+        Context mContext = context;
+        final PackageManager pm = mContext.getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            int enabled = pm.getApplicationEnabledSetting(packageName);
+            return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
+                enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
     public static void switchScreenOff(Context ctx) {
         PowerManager pm = (PowerManager) ctx.getSystemService(Context.POWER_SERVICE);
         if (pm!= null) {
