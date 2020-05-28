@@ -6610,6 +6610,14 @@ public final class Settings {
          */
         public static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
 
+       /**
+         * @hide
+         */
+        public static final String LOCKSCREEN_WEATHER_SHOW_IMAGE = "lockscreen_weather_show_image";
+
+        /** @hide */
+        private static final Validator LOCKSCREEN_WEATHER_SHOW_IMAGE_VALIDATOR = BOOLEAN_VALIDATOR;
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
@@ -6870,6 +6878,7 @@ public final class Settings {
             LOCKSCREEN_WEATHER_STYLE,
             LOCKSCREEN_WEATHER_SHOW_TEMP,
             LOCKSCREEN_WEATHER_SHOW_CITY,
+            LOCKSCREEN_WEATHER_SHOW_IMAGE,
         };
 
         /**
@@ -7116,6 +7125,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_STYLE);
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_TEMP);
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_CITY);
+            PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_IMAGE);
         }
 
         /**
@@ -7419,6 +7429,7 @@ public final class Settings {
             VALIDATORS.put(LOCKSCREEN_WEATHER_STYLE,LOCKSCREEN_WEATHER_STYLE_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_WEATHER_SHOW_TEMP, LOCKSCREEN_WEATHER_SHOW_TEMP_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_WEATHER_SHOW_CITY, LOCKSCREEN_WEATHER_SHOW_CITY_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_WEATHER_SHOW_IMAGE, LOCKSCREEN_WEATHER_SHOW_IMAGE_VALIDATOR);
         }
 
         /**
