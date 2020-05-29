@@ -590,6 +590,330 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             case 8:
                 logo = getContext().getResources().getDrawable(R.drawable.ic_android_logo);
                 break;
+                // BatMan
+            case 9:
+                logo = getContext().getDrawable(R.drawable.ic_batman_logo);
+                break;
+                // DeadPool
+            case 10:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_deadpool_logo);
+                break;
+                // DecpetIcons
+            case 11:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_decpeticons_logo);
+                break;
+                // IronMan
+            case 12:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_ironman_logo);
+                break;
+                // Minions
+            case 13:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_minions_logo);
+                break;
+                // SpiderMan
+            case 14:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_spiderman_logo);
+                break;
+                // AEXLogo
+            case 15:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_aex_logo);
+                break;
+                // AICPLogo
+            case 16:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_aicp);
+                break;
+                // Alien
+            case 17:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_alien);
+                break;
+                // AppLe
+            case 18:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_apple_logo);
+                break;
+                // Beats
+            case 19:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_beats);
+                break;
+                // Biohazard
+            case 20:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_biohazard);
+                break;
+                // Blogger
+            case 21:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_blogger);
+                break;
+                // Bomb
+            case 22:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_bomb);
+                break;
+                // BootlegLogo
+            case 23:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_bootleg);
+                break;
+                // Brain
+            case 24:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_brain);
+                break;
+                // Clippy
+            case 25:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_clippy);
+                break;
+                // Clown
+            case 26:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_clown);
+                break;
+                // CosmisLogo
+            case 27:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_cosmic);
+                break;
+                // CrDroidLogo
+            case 28:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_crdroid);
+                break;
+                // DeathStar
+            case 29:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_deathstar);
+                break;
+                // DerpAlt
+            case 30:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_derp_alt);
+                break;
+                // DerpLogo
+            case 31:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_derp_logo);
+                break;
+                // DiamondStone
+            case 32:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_diamond_stone);
+                break;
+                // DramaMasks
+            case 33:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_drama_masks);
+                break;
+                // DuLogo
+            case 34:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_du);
+                break;
+                // EmoticonCool
+            case 35:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_emoticon_cool_outline);
+                break;
+                // EmoticonDevil
+            case 36:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_emoticon_devil);
+                break;
+                // FingerPrint
+            case 37:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_fingerprint);
+                break;
+                // FootballHelmet
+            case 38:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_football_helmet);
+                break;
+                // GamePad
+            case 39:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_gamepad);
+                break;
+                // Ghost
+            case 40:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_ghost);
+                break;
+                // GithubFace
+            case 41:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_github_face);
+                break;
+                // GlassCocktail
+            case 42:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_glass_cocktail);
+                break;
+                // GlassWine
+            case 43:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_glass_wine);
+                break;
+                // Glitter
+            case 44:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_glitter);
+                break;
+                // Graphql
+            case 45:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_graphql);
+                break;
+                // GuitarElectric
+            case 46:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_guitar_electric);
+                break;
+                // GuitarPick
+            case 47:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_guitar_pick);
+                break;
+                // GZRLogo
+            case 48:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_gzr);
+                break;
+                // GZRCircle
+            case 49:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_gzr_circle);
+                break;
+                // GZRSkull
+            case 50:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_gzr_skull);
+                break;
+                // HandOkay
+            case 51:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_hand_okay);
+                break;
+                // HavocLogo
+            case 52:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_havoc);
+                break;
+                // Heart
+            case 53:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_heart);
+                break;
+                // Khloe
+            case 54:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_khloe);
+                break;
+                // Kronic1
+            case 55:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_kronic1);
+                break;
+                // Kronic2
+            case 56:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_kronic2);
+                break;
+                // Kronic3
+            case 57:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_kronic3);
+                break;
+                // KronicLogo
+            case 58:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_kronic_logo);
+                break;
+                // Linux
+            case 59:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_linux);
+                break;
+                // LiquidremixLogo
+            case 60:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_liquid_remix);
+                break;
+                // MushRoom
+            case 61:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_mushroom);
+                break;
+                // Nest
+            case 62:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_nest);
+                break;
+                // NiceLogo
+            case 63:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_nice_logo);
+                break;
+                // Ornament
+            case 64:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_ornament);
+                break;
+                // Owl2
+            case 65:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_owl2);
+                break;
+                // PacMan1
+            case 66:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_pacman1);
+                break;
+                // PacMan2
+            case 67:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_pacman2);
+                break;
+                // PineTree
+            case 68:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_pine_tree);
+                break;
+                // ResuRectionRemixLogo
+            case 69:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_rr);
+                break;
+                // WolfRunning
+            case 70:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_running_wolf);
+                break;
+                // ShishuBuilds
+            case 71:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_shishubuilds);
+                break;
+                // ShishuLogo
+            case 72:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_shishu_logo);
+                break;
+                // SpaceInvaders
+            case 73:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_space_invaders);
+                break;
+                // SungLasses
+            case 74:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_sunglasses);
+                break;
+                // ThemeIcon01
+            case 75:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_themeicon01);
+                break;
+                // ThemeIcon02
+            case 76:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_themeicon02);
+                break;
+                // ThemeIcon03
+            case 77:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_themeicon03);
+                break;
+                // TimerSand
+            case 78:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_timer_sand);
+                break;
+                // TipsyBottle
+            case 79:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_tipsy_bottle);
+                break;
+                // TipsyLetters
+            case 80:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_tipsy_letters);
+                break;
+                // TipsyTavern
+            case 81:
+                logo = getContext().getDrawable(R.drawable.ic_status_bar_tipsy_tavern);
+                break;
+                // TipsyCheerz
+            case 82:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_tipsy_cheerz);
+                break;
+                // ViperLoGo
+            case 83:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_viper);
+                break;
+                // Wolf
+            case 84:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_status_bar_wolf);
+                break;
+                // SuperMan
+            case 85:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_superman_logo);
+                break;
+                // XtendedLogo
+            case 86:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_xtnd_logo);
+                break;
+                // XtendedLogoShort
+            case 87:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_xtnd_short);
+                break;
+                // YinYang
+            case 88:
+                logo = getContext().getResources().getDrawable(R.drawable.ic_yin_yang);
+                break;
+                // ZenXOSLogo
+            case 89:
+                logo = getContext().getDrawable(R.drawable.ic_zenx_logo);
+                break;
                 // DerpFest
             case 0:
             default:
