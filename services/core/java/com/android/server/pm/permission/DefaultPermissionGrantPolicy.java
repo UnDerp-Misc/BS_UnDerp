@@ -847,6 +847,9 @@ public final class DefaultPermissionGrantPolicy {
         // GBoard
         grantSystemFixedPermissionsToSystemPackage("com.google.android.inputmethod.latin", userId, STORAGE_PERMISSIONS);
 
+        // OmniJaws
+        grantSystemFixedPermissionsToSystemPackage("org.omnirom.omnijaws", userId, ALWAYS_LOCATION_PERMISSIONS);
+
         // ThemePicker
         String themePickerPackage = "com.android.customization";
         PackageInfo pkg = getPackageInfo(themePickerPackage);
