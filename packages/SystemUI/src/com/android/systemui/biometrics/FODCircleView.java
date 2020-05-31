@@ -35,6 +35,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.hardware.biometrics.BiometricSourceType;
 import android.os.Handler;
 import android.graphics.PorterDuff;
 import android.os.UserHandle;
@@ -176,6 +177,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
                 mBurnInProtectionTimer.schedule(new BurnInProtectionTask(), 0, 60 * 1000);
             } else if (mBurnInProtectionTimer != null) {
                 mBurnInProtectionTimer.cancel();
+                updatePosition();
             }
         }
 
@@ -496,6 +498,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         }
 
         setImageDrawable(null);
+        updatePosition();
         setColorFilter(Color.argb(0,0,0,0), PorterDuff.Mode.SRC_ATOP);
         invalidate();
     }
@@ -598,9 +601,12 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
             mParams.y = mPositionY - cutoutMaskedExtra;
         }
 
-        if (mIsDreaming) {
-            mParams.y += mDreamingOffsetY;
+        if (mFODAnimation != null) {
             mFODAnimation.updateParams(mParams.y);
+        }
+
+        if (mIsDreaming && !mIsCircleShowing) {
+            mParams.y += mDreamingOffsetY;
         }
 
         mWindowManager.updateViewLayout(this, mParams);
