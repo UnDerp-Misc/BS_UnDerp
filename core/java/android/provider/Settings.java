@@ -6401,26 +6401,6 @@ public final class Settings {
         private static final Validator NOTIFICATION_HEADERS_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
-         * Control how to handle the display cutout
-         * @hide
-         */
-        public static final String DISPLAY_CUTOUT_MODE = "display_cutout_mode";
-
-        /** @hide */
-        private static final Validator DISPLAY_CUTOUT_MODE_VALIDATOR = new
-                SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
-
-        /**
-         * Control how to handle the display cutout
-         * @hide
-         */
-        public static final String STOCK_STATUSBAR_IN_HIDE = "stock_statusbar_in_hide";
-
-        /** @hide */
-        private static final Validator STOCK_STATUSBAR_IN_HIDE_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
          * Whether to show the battery bar
          * @hide
          */
