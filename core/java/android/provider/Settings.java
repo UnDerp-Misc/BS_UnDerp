@@ -6707,13 +6707,7 @@ public final class Settings {
         /** @hide */
         private static final Validator HIDE_SMART_REPLIES_VALIDATOR = BOOLEAN_VALIDATOR;
 
-        /**
-         * DismissAll Button
-         * @hide
-         */
-        public static final String DISMISS_ALL_BUTTON = "dismiss_all_button";
-
-	/**
+	   /**
          * Adaptive playback
          * Automatically pause media when the volume is muted and
          * will resume automatically when volume is restored.
