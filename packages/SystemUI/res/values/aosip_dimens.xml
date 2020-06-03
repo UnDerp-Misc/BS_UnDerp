@@ -52,7 +52,9 @@
     <!-- Volume panel -->
     <dimen name="volume_dialog_panel_transparent_padding_left">20dp</dimen>
 
-   <dimen name="fod_animation_size">280dp</dimen>  
+    <dimen name="volume_dialog_panel_land_margin">68dp</dimen>
+
+    <dimen name="fod_animation_size">280dp</dimen>  
 
     <!-- Pixel navbar -->
     <dimen name="halo_diameter">22dp</dimen>
