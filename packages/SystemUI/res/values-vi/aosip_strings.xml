@@ -157,7 +157,7 @@
     <string name="volte_icon_volte">Biểu tượng VoLTE</string>
     <string name="volte_icon_oos">Biểu tượng VoLTE OSS</string>
     <string name="volte_icon_hd">Biểu tượng HD</string>
-    <string name="volte_icon_volit">Biểu tượng VoLIE</string>
+    <string name="volte_icon_volit">Biểu tượng VoLIT</string>
     <!-- Navbar editor -->
     <string name="preview">Xem trước</string>
     <string name="keycode">Mã khoá</string>
