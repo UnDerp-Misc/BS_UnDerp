@@ -224,7 +224,8 @@ public class FODCircleView extends ImageView implements ConfigurationListener, T
                 mBurnInProtectionTimer.schedule(new BurnInProtectionTask(), 0, 60 * 1000);
             } else if (mBurnInProtectionTimer != null) {
                 mBurnInProtectionTimer.cancel();
-                updatePosition();
+                mDreamingOffsetY = 0;
+                mHandler.post(() -> updatePosition());
             }
         }
 
@@ -790,7 +791,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener, T
             // Let y to be not synchronized with x, so that we get maximum movement
             mDreamingOffsetY = (int) ((now + mDreamingMaxOffset / 3) % (mDreamingMaxOffset * 2));
             mDreamingOffsetY -= mDreamingMaxOffset;
-
             mHandler.post(() -> updatePosition());
         }
     };
