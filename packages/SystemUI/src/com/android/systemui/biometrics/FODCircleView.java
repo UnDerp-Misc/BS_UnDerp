@@ -32,7 +32,6 @@ import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.hardware.biometrics.BiometricSourceType;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
@@ -40,7 +39,6 @@ import android.os.Handler;
 import android.graphics.PorterDuff;
 import android.os.UserHandle;
 import android.os.Looper;
-import android.os.PowerManager;
 import android.os.RemoteException;
 import android.provider.Settings;
 import android.net.Uri;
@@ -91,13 +89,9 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
     private boolean mIsKeyguard;
     private boolean mIsShowing;
     private boolean mIsCircleShowing;
-    private boolean mIsAuthenticated;
     private boolean mCanUnlockWithFp;
 
     private Handler mHandler;
-
-    private PowerManager mPowerManager;
-    private PowerManager.WakeLock mWakeLock;
 
     private LockPatternUtils mLockPatternUtils;
 
@@ -199,12 +193,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
             } else {
                 hide();
             }
-        }
-
-        @Override
-        public void onBiometricAuthenticated(int userId, BiometricSourceType biometricSourceType) {
-            super.onBiometricAuthenticated(userId, biometricSourceType);
-            mIsAuthenticated = true;
         }
 
         @Override
@@ -351,10 +339,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         mBrightnessObserver = new BrightnessObserver(context, mHandler);
         mBrightnessObserver.registerBrightnessListener();
 
-        mPowerManager = context.getSystemService(PowerManager.class);
-        mWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                FODCircleView.class.getSimpleName());
-
         mFODAnimation = new FODAnimation(context, mPositionX, mPositionY);
 
         mCanUnlockWithFp = canUnlockWithFp(mUpdateMonitor);
@@ -367,17 +351,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
         if (mIsCircleShowing) {
             setImageResource(PRESSED_STYLES[mPressedIcon]);
-        }
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-
-        if (mIsCircleShowing) {
-            dispatchPress();
-        } else {
-            dispatchRelease();
         }
     }
 
@@ -484,17 +457,9 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
     }
 
     public void showCircle() {
-        if (mIsAuthenticated) {
-            return;
-        }
-
         mIsCircleShowing = true;
 
         setKeepScreenOn(true);
-
-        if (mIsDreaming) {
-            mWakeLock.acquire(300);
-        }
 
         updateAlpha();
 
@@ -511,7 +476,11 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
                 PorterDuff.Mode.SRC_ATOP);
         invalidate();
 
+        dispatchRelease();
+
         updateAlpha();
+
+        dispatchPress();
 
         setKeepScreenOn(false);
     }
@@ -528,7 +497,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         }
 
         mIsShowing = true;
-        mIsAuthenticated = false;
 
         updatePosition();
 
