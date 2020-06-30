@@ -152,4 +152,7 @@
          2: 90Hz -->
     <integer name="config_defaultRefreshRate">0</integer>
 
+    <!-- Vowifi -->
+    <bool name="config_hasVowifi">false</bool>
+
 </resources>
