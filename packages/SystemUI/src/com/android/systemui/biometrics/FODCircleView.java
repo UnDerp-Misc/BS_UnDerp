@@ -360,7 +360,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         Resources res = context.getResources();
 
         mPaintFingerprint.setAntiAlias(true);
-        mPaintFingerprint.setColor(res.getColor(R.color.config_fodColor));
+        mPaintFingerprint.setColor(res.getColor(R.color.accent_device_default_light));
 
         mWindowManager = context.getSystemService(WindowManager.class);
 
@@ -739,7 +739,7 @@ class FODAnimation extends ImageView {
     private AnimationDrawable recognizingAnim;
     private final WindowManager.LayoutParams mAnimParams = new WindowManager.LayoutParams();
 
-    private int mSelectedAnime;
+    private int mSelectedAnim;
     private final int[] ANIMATION_STYLES = {
         R.drawable.fod_miui_normal_recognizing_anim,
         R.drawable.fod_miui_aod_recognizing_anim,
@@ -778,10 +778,10 @@ class FODAnimation extends ImageView {
     }
 
     public void update() {
-        mSelectedAnime = Settings.System.getInt(mContext.getContentResolver(),
+        mSelectedAnim = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.FOD_ANIM, 0);
 
-        this.setBackgroundResource(ANIMATION_STYLES[mSelectedAnime]);
+        this.setBackgroundResource(ANIMATION_STYLES[mSelectedAnim]);
         recognizingAnim = (AnimationDrawable) this.getBackground();
     }
 
