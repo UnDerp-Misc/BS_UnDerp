@@ -9,7 +9,7 @@
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIaND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
@@ -198,12 +198,6 @@
   <!-- True if the notification's dynamic app icon and text tint should be optimised for dark
        backgrounds -->
   <java-symbol type="bool" name="config_useDarkBgNotificationIconTextTinting" />
-
-  <!-- Library path of screen off fod handler -->
-  <java-symbol type="string" name="config_fodScreenOffHandlerLib" />
-
-  <!-- Class name of screen off fod handler -->
-  <java-symbol type="string" name="config_fodScreenOffHandlerClass" />
 
   <!-- Whether device supports variable refresh rate -->
   <java-symbol type="bool" name="config_hasVariableRefreshRate" />
