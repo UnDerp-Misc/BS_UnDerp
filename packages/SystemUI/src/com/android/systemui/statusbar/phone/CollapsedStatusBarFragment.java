@@ -914,6 +914,18 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             case 89:
                 logo = getContext().getDrawable(R.drawable.ic_zenx_logo);
                 break;
+                // BlissLogo
+            case 90:
+                logo = getContext().getDrawable(R.drawable.ic_bliss_logo);
+                break;
+                // CorVusLogo1
+            case 91:
+                logo = getContext().getDrawable(R.drawable.ic_corvus_logo1);
+                break;
+                // CorVusLogo2
+            case 92:
+                logo = getContext().getDrawable(R.drawable.ic_corvus_logo2);
+                break;
                 // DerpFest
             case 0:
             default:
