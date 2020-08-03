@@ -463,13 +463,34 @@ public class MobileSignalController extends SignalController<
                 case 5:
                     resId = R.drawable.ic_volte3;
                     break;
+                // EMUI VoLTE
+                case 6:
+                    resId = R.drawable.ic_volte6;
+                    break;
+                // BLISS VoLTE
+                case 7:
+                    resId = R.drawable.ic_volte7;
+                    break;
+                // SONY VoLTE
+                case 8:
+                    resId = R.drawable.ic_volte8;
+                    break;
+                // PILL SHAPE VoLTE
+                case 9:
+                    resId = R.drawable.ic_volte9;
+                    break;
+                // SQUARE2 TONE VoLTE
+                case 10:
+                    resId = R.drawable.ic_volte10;
+                    break;
+                // NOTCH FRIENDLY VoLTE
+                case 11:
+                    resId = R.drawable.ic_volte11;
+                    break;
 		        //Vo
                 case 0:
                 default:
                     resId = R.drawable.ic_volte;
-                    break;
-                case 11:
-                    resId = R.drawable.ic_volte10;
                     break;
             }
         }

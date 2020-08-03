@@ -189,6 +189,12 @@
     <string name="volte_icon_oos">OOS Icon</string>
     <string name="volte_icon_hd">HD Icon</string>
     <string name="volte_icon_volit">VoLIT Icon</string>
+    <string name="volte_icon_emui">Emui Icon</string>
+    <string name="volte_icon_bliss">Bliss Icon</string>
+    <string name="volte_icon_sony">Sony Icon</string>
+    <string name="volte_icon_pillshape">Pill Shape Icon</string>
+    <string name="volte_icon_square">Square2 tone Icon</string>
+    <string name="volte_icon_notch">Notch Friendly Icon</string>
 
     <!-- Show VoWiFi icon on statusbar -->
     <string name="vowifi_icon_style_title">Select VoWiFi Icon</string>
